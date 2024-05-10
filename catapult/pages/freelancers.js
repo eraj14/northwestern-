@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FreelancerCard from '../components/FreelancerCard'; 
 import user from '../assets/user.jpg';
 
 const FreelancersPage = () => {
   const [freelancers, setFreelancers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fakeFreelancers = [
@@ -30,11 +31,24 @@ const FreelancersPage = () => {
     setFreelancers(fakeFreelancers);
   }, []);
 
+  // Filter freelancers by name
+  const filteredFreelancers = freelancers.filter(freelancer =>
+    freelancer.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
       <h1>Meet Our Freelancers</h1>
+      <div>
+        <input
+          type="text"
+          placeholder="Search by name..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {freelancers.map((freelancer) => (
+        {filteredFreelancers.map((freelancer) => (
           <FreelancerCard key={freelancer.id} freelancer={freelancer} />
         ))}
       </div>
