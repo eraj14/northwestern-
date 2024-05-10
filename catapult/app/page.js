@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import React from "react";
 const FeatureCard = ({ title, description, link }) => (
-  <a href={link} className={styles.card} target="_blank" rel="noopener noreferrer">
+  <a href={link} className={styles.card} rel="noopener noreferrer">
     <h2>{title} <span>-&gt;</span></h2>
     <p>{description}</p>
   </a>
@@ -34,11 +34,7 @@ function Home() {
           description="Connect with skilled freelancers for your projects"
           link="/freelancers"
         />
-        <FeatureCard
-          title="Create Profile"
-          description="Build your professional profile and showcase your work"
-          link="/profile"
-        />
+        
       </div>
 
       <div className={styles.footer}>
