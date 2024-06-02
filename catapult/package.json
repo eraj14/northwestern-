@@ -4,16 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "firebase": "^10.11.1",
-    "firebase-tools": "^13.7.2",
-    "next": "^14.2.3",
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "firebase": "^10.12.2",
+    "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18",
-    "react-firebase-hooks": "^5.1.1"
+    "react-dom": "^18"
   }
 }

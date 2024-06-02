@@ -1,9 +1,0 @@
-08:13:08.304 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
-08:13:08.544 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
-08:13:11.128 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - catapult-nu-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 215ms, init: 0ms
-08:13:11.217 [NamespaceSystem-blocking-namespace-operation-dispatcher-6] INFO com.firebase.core.namespace.StateManager - Namespace catapult-nu-default-rtdb status Active to Active
-08:13:24.226 [FirebaseWorkerPool-1-3] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
-namespace catapult-nu, but the emulator is configured for catapult-nu-default-rtdb. To 
-opt-out of single project mode add/set the singleProjectMode: false property in 
-the firebase.json emulators config. 
-08:13:24.242 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - catapult-nu successfully activated FBKV (SurveyIdle(0)) wait: 8ms, init: 0ms
