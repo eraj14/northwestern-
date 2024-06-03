@@ -2,26 +2,34 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faSignOutAlt, faHome } from '@fortawesome/free-solid-svg-icons';
-import {  } from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faSignOutAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth } from '../firebase';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { auth, db } from '../firebase';
 import styles from "../styles/page.module.css";
 import withAuth from '../components/withAuth';
 
 function Home() {
   const [user, setUser] = useState(null);
-  const [name, setName] = useState('');
+  const [newMessages, setNewMessages] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      
+      if (currentUser) {
+        const messagesRef = collection(db, 'messages');
+        const q = query(messagesRef, where('receiver', '==', currentUser.email), where('read', '==', false));
+
+        const unsubscribeMessages = onSnapshot(q, (snapshot) => {
+          setNewMessages(snapshot.size);
+        });
+
+        return () => unsubscribeMessages();
+      }
     });
-    
 
     return () => {
-      unsubscribe();
+      unsubscribeAuth();
     };
   }, []);
 
@@ -37,13 +45,20 @@ function Home() {
   return (
     <div>
       <nav className={styles.navbar}>
-      
         <div className={styles.navRight}>
           {user ? (
-            <span className={styles.username}>
-              Hi, {user.email}
-              <button onClick={handleSignOut} className={styles.signOutButton}><FontAwesomeIcon icon={faSignOutAlt} /></button>
-            </span>
+            <>
+              <span className={styles.username}>
+                Hi, {user.email}
+                <button onClick={handleSignOut} className={styles.signOutButton}><FontAwesomeIcon icon={faSignOutAlt} /></button>
+              </span>
+              <Link href="/messages" legacyBehavior>
+                <a className={styles.messageIcon}>
+                  <FontAwesomeIcon icon={faEnvelope} />
+                  {newMessages > 0 && <span className={styles.badge}>{newMessages}</span>}
+                </a>
+              </Link>
+            </>
           ) : (
             <Link href="/login" legacyBehavior>
               <a className={styles.loginIcon}>

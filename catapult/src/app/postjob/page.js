@@ -5,9 +5,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '../../firebase';
 import styles from "../../styles/page.module.css";
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import Navbar from '@/components/Navbar';
 
 export default function PostJob() {
   const [title, setTitle] = useState('');
@@ -58,15 +56,7 @@ export default function PostJob() {
 
   return (
     <div>
-      <nav className={styles.navbar}>
-        <div className={styles.navRight}>
-          <Link href="/" legacyBehavior>
-            <a className={styles.homeIcon}>
-              <FontAwesomeIcon icon={faHome} />
-            </a>
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       <main className={styles.main}>
         <h1>Post a Job</h1>
@@ -105,7 +95,7 @@ export default function PostJob() {
             <label className={styles.formLabel}>Needed when:</label>
             <input
               type="text"
-              placeholder ="Spring Q, June 5,2024, etc."
+              placeholder="Spring Q, June 5, 2024, etc."
               value={when}
               onChange={(e) => setWhen(e.target.value)}
               required

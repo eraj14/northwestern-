@@ -1,10 +1,14 @@
-/* src/styles/page.module.css */
-
-/* Existing Styles */
+/* Navbar Styles */
 .navbar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end; /* Ensure items align to the right */
   padding: 10px;
+}
+
+.navLeft {
+  display: flex;
+  align-items: center;
+  margin-right: auto; /* Pushes navLeft items to the far left */
 }
 
 .navRight {
@@ -12,12 +16,113 @@
   align-items: center;
 }
 
-.homeIcon {
+.homeIcon, .messageIcon {
   font-size: 24px;
   cursor: pointer;
   color: #0070f3;
+  margin-right: 20px;
 }
 
+/* Main Layout */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
+
+/* Chat Styles */
+.chatContainer {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.messageSent, .messageReceived {
+  max-width: 60%;
+  padding: 10px 15px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.messageSent {
+  background: #0070f3;
+  color: white;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.messageReceived {
+  background: #e6e6e6;
+  color: black;
+  align-self: flex-start;
+  text-align: left;
+}
+
+.messageSent span, .messageReceived span {
+  display: block;
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 5px;
+}
+
+.form {
+  display: flex;
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  background: #fff;
+  border-radius: 0 0 8px 8px;
+}
+
+.input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.sendButton {
+  padding: 10px 15px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sendButton:hover {
+  background-color: #005bb5;
+}
+
+/* Badge Styles */
+.badge {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  position: relative;
+  top: -10px;
+  left: -10px;
+}
+
+/* Form Styles */
 .formContainer {
   display: flex;
   flex-direction: column;
@@ -58,100 +163,76 @@
   color: red;
 }
 
-
-.loginIcon {
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.username {
-  font-size: 18px;
-  margin-right: 10px;
-}
-
-.signOutButton {
-  background: none;
-  border: none;
-  color: blue;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
-}
-
-.description {
-  display: inherit;
-  justify-content: inherit;
-  align-items: inherit;
-  font-size: 0.85rem;
-  max-width: var(--max-width);
+/* Job Listing Styles */
+.jobList, .conversationList, .messageList, .freelancerList {
+  list-style-type: none;
+  padding: 0;
   width: 100%;
-  z-index: 2;
-  font-family: var(--font-mono);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.description a {
+.jobCard, .conversationItem, .freelancerCard, .messageItem {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.jobCard h2, .conversationItem h2, .freelancerCard h2 {
+  margin: 0 0 10px 0;
+}
+
+.jobCard p, .conversationItem p, .freelancerCard p, .messageItem p {
+  margin: 5px 0;
+}
+
+.messageButton {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  gap: 5px;
 }
 
-.description p {
-  position: relative;
-  margin: 0;
-  padding: 1rem;
-  background-color: rgba(var(--callout-rgb), 0.5);
-  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
-  border-radius: var(--border-radius);
+.messageButton:hover {
+  background-color: #005bb5;
 }
 
-.code {
-  font-weight: 700;
-  font-family: var(--font-mono);
+/* Message Read/Unread Styles */
+.readMessage {
+  background-color: #f9f9f9;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(35%, auto));
+.unreadMessage {
+  background-color: #e6f7ff;
+}
+
+/* Job Info */
+.jobInfo {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.jobInfo h2 {
+  margin: 0 0 10px 0;
+}
+
+.freelancerImage {
   max-width: 100%;
-  width: var(--max-width);
+  height: auto;
+  border-radius: 4px;
+  margin-top: 10px;
 }
 
-.card {
-  padding: 1rem 1.2rem;
-  border-radius: var(--border-radius);
-  background: rgba(var(--card-rgb), 0);
-  border: 1px solid rgba(var(--card-border-rgb), 0);
-  transition: background 200ms, border 200ms;
-}
-
-.card span {
-  display: inline-block;
-  transition: transform 200ms;
-}
-
-.card h2 {
-  font-weight: 600;
-  margin-bottom: 0.7rem;
-}
-
-.card p {
-  margin: 0;
-  opacity: 0.6;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  max-width: 30ch;
-  text-wrap: balance;
-}
-
+/* Hero Section */
 .center {
   display: flex;
   justify-content: center;
@@ -188,37 +269,42 @@
   position: relative;
 }
 
-.freelancerList {
-  list-style-type: none;
-  padding: 0;
-  width: 100%;
-  max-width: 800px;
-  margin: 20px auto 0;
-}
-
-.freelancerCard {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 20px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.freelancerCard h2 {
-  margin: 0 0 10px 0;
-}
-
-.freelancerCard p {
-  margin: 5px 0;
-}
-
-.freelancerImage {
+/* Grid Layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(35%, auto));
   max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-  margin-top: 10px;
+  width: var(--max-width);
 }
 
+.card {
+  padding: 1rem 1.2rem;
+  border-radius: var(--border-radius);
+  background: rgba(var(--card-rgb), 0);
+  border: 1px solid rgba(var(--card-border-rgb), 0);
+  transition: background 200ms, border 200ms;
+}
+
+.card span {
+  display: inline-block;
+  transition: transform 200ms;
+}
+
+.card h2 {
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+
+.card p {
+  margin: 0;
+  opacity: 0.6;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 30ch;
+  text-wrap: balance;
+}
+
+/* Responsive Styles */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
     background: rgba(var(--card-rgb), 0.1);
@@ -236,7 +322,6 @@
   }
 }
 
-/* Mobile */
 @media (max-width: 700px) {
   .content {
     padding: 4rem;
@@ -313,7 +398,6 @@
   }
 }
 
-/* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
   .grid {
     grid-template-columns: repeat(2, 50%);
@@ -337,72 +421,4 @@
   to {
     transform: rotate(0deg);
   }
-}
-
-/* New Styles for PostJob and BrowseJobs */
-
-/* Form styles for PostJob */
-.formContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.formField {
-  margin-bottom: 10px;
-}
-
-.formLabel {
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.formInput {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.submitButton {
-  padding: 10px 15px;
-  background-color: #0070f3;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.submitButton:hover {
-  background-color: #005bb5;
-}
-
-.errorMessage {
-  color: red;
-}
-
-/* Job listing styles for BrowseJobs */
-.jobList {
-  list-style-type: none;
-  padding: 0;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.jobCard {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 20px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.jobCard h2 {
-  margin: 0 0 10px 0;
-}
-
-.jobCard p {
-  margin: 5px 0;
 }

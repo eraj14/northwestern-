@@ -8,6 +8,7 @@ import styles from "../../styles/page.module.css";
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
+import Navbar from '../../components/Navbar'
 
 export default function Freelancers() {
   const [name, setName] = useState('');
@@ -58,15 +59,7 @@ export default function Freelancers() {
 
   return (
     <div>
-      <nav className={styles.navbar}>
-        <div className={styles.navRight}>
-          <Link href="/" legacyBehavior>
-            <a className={styles.homeIcon}>
-              <FontAwesomeIcon icon={faHome} />
-            </a>
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
     <main className={styles.main}>
       <h1>Freelancers</h1>
       <form onSubmit={handleSubmit} className={styles.formContainer}>
