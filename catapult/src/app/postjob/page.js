@@ -1,8 +1,9 @@
-"use client";  // This ensures the component is treated as a client component
-import { useState } from 'react';
+"use client"; 
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth, db } from '../../firebase';
 import styles from "../../styles/page.module.css";
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,19 +13,38 @@ export default function PostJob() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
+  const [when, setWhen] = useState('');
   const [salary, setSalary] = useState('');
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
+  const [user, setUser] = useState(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+      } else {
+        router.push('/login');
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) return;
+
     try {
       await addDoc(collection(db, 'jobs'), {
         title,
         description,
         location,
+        when,
         salary,
+        datePosted: new Date(),
+        postedBy: user.email,
       });
       setSuccessMessage('Job posted successfully!');
       setTimeout(() => {
@@ -77,6 +97,17 @@ export default function PostJob() {
               type="text"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
+              required
+              className={styles.formInput}
+            />
+          </div>
+          <div className={styles.formField}>
+            <label className={styles.formLabel}>Needed when:</label>
+            <input
+              type="text"
+              placeholder ="Spring Q, June 5,2024, etc."
+              value={when}
+              onChange={(e) => setWhen(e.target.value)}
               required
               className={styles.formInput}
             />
