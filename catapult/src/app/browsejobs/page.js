@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase';
 import styles from "../../styles/page.module.css";
 import Link from 'next/link';
@@ -12,15 +12,15 @@ export default function BrowseJobs() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchJobs = async () => {
-      const jobCollection = collection(db, 'jobs');
-      const jobSnapshot = await getDocs(jobCollection);
-      const jobList = jobSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const jobCollection = collection(db, 'jobs');
+
+    const unsubscribe = onSnapshot(jobCollection, (snapshot) => {
+      const jobList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setJobs(jobList);
       setLoading(false);
-    };
+    });
 
-    fetchJobs();
+    return () => unsubscribe();
   }, []);
 
   if (loading) {
@@ -49,7 +49,9 @@ export default function BrowseJobs() {
               <p><strong>Location:</strong> {job.location}</p>
               <p><strong>When:</strong> {job.when}</p>
               <p><strong>Reward:</strong> {job.salary}</p>
-              <p><strong>Date Posted:</strong> {new Date(job.datePosted.seconds * 1000).toLocaleDateString()}</p>
+              {job.datePosted && job.datePosted.seconds && (
+                <p><strong>Date Posted:</strong> {new Date(job.datePosted.seconds * 1000).toLocaleDateString()}</p>
+              )}
               <p><strong>Posted by:</strong> {job.postedBy}</p>
             </li>
           ))}
