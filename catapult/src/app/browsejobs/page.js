@@ -1,54 +1,39 @@
-// src/app/browsejobs/page.js
-"use client"
+"use client";
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import { db, auth } from '../../firebase';
-import { useRouter } from 'next/router';
-import { onAuthStateChanged } from 'firebase/auth';
+import { db } from '../../firebase';
 import styles from "../../styles/page.module.css";
 
 export default function BrowseJobs() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const fetchJobs = async () => {
-          const jobsCollection = collection(db, 'jobs');
-          const jobSnapshot = await getDocs(jobsCollection);
-          const jobList = jobSnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }));
-          setJobs(jobList);
-          setLoading(false);
-        };
+    const fetchJobs = async () => {
+      const jobCollection = collection(db, 'jobs');
+      const jobSnapshot = await getDocs(jobCollection);
+      const jobList = jobSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setJobs(jobList);
+      setLoading(false);
+    };
 
-        fetchJobs();
-      } else {
-        router.push('/login');
-      }
-    });
-
-    return () => unsubscribe();
-  }, [router]);
+    fetchJobs();
+  }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <div>Loading...</div>;
   }
 
   return (
     <main className={styles.main}>
-      <h1>Browse Jobs</h1>
-      <ul>
+      <h1>Job Postings</h1>
+      <ul className={styles.jobList}>
         {jobs.map(job => (
-          <li key={job.id}>
+          <li key={job.id} className={styles.jobCard}>
             <h2>{job.title}</h2>
             <p>{job.description}</p>
-            <p><b>Location:</b> {job.location}</p>
-            <p><b>Salary:</b> {job.salary}</p>
+            <p><strong>Location:</strong> {job.location}</p>
+            <p><strong>Salary:</strong> {job.salary}</p>
           </li>
         ))}
       </ul>
