@@ -141,6 +141,37 @@
   position: relative;
 }
 
+.freelancerList {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto 0;
+}
+
+.freelancerCard {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.freelancerCard h2 {
+  margin: 0 0 10px 0;
+}
+
+.freelancerCard p {
+  margin: 5px 0;
+}
+
+.freelancerImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
     background: rgba(var(--card-rgb), 0.1);
