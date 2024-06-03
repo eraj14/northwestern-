@@ -32,10 +32,10 @@ export default function Login() {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    if (!email.endsWith('@u.northwestern.edu')) {
-      setError('Email must be a @u.northwestern.edu domain');
-      return;
-    }
+    // if (!email.endsWith('@u.northwestern.edu')) {
+    //   setError('Email must be a @u.northwestern.edu domain');
+    //   return;
+    // }
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, 'temporaryPassword');
       await sendEmailVerification(userCredential.user);
