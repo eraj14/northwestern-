@@ -1,19 +1,24 @@
-"use client"
+"use client";
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import styles from "../styles/page.module.css";
+import withAuth from '../components/withAuth';
 
-export default function Home() {
+function Home() {
   const [user, setUser] = useState(null);
+  const [name, setName] = useState('');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      
     });
+    
 
     return () => {
       unsubscribe();
@@ -36,7 +41,7 @@ export default function Home() {
           {user ? (
             <span className={styles.username}>
               Hi, {user.email}
-              <button onClick={handleSignOut} className={styles.signOutButton}>Sign Out</button>
+              <button onClick={handleSignOut} className={styles.signOutButton}><FontAwesomeIcon icon={faSignOutAlt} /></button>
             </span>
           ) : (
             <Link href="/login" legacyBehavior>
@@ -88,3 +93,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default withAuth(Home);

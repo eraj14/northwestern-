@@ -89,7 +89,7 @@ export default function Login() {
 
   return (
     <main className={styles.main}>
-      <h1>{isSignUp ? (isEmailVerified ? 'Set Password' : 'Sign Up') : 'Login'}</h1>
+      <h1>{isSignUp ? (isEmailVerified ? 'Set Password' : 'Sign Up') : 'Please log in or sign up to continue'}</h1>
       <form onSubmit={isSignUp ? (isEmailVerified ? handleSetPassword : handleSignUp) : handleLogin} className={styles.formContainer}>
         {isSignUp && !isEmailSent && (
           <div className={styles.formField}>
